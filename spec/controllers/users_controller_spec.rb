@@ -6,7 +6,7 @@ describe UsersController do
     it "assigns a new user as @user" do
       get :new
       assigns(:user).should be_new_record
-      assigns(:user).kind_of?(User).should be_true
+      assigns(:user).kind_of?(User).should be_truthy
     end
     
     it "renders the :new template" do
