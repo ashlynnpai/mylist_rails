@@ -5,4 +5,8 @@ Rails.application.routes.draw do
   resources :casts, only: [:index] do
     
   end
+  
+  resources :users, only: [:new] do
+    
+  end
 end
