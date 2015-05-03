@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     
   end
   
-  resources :users, only: [:new] do
+  resources :users, only: [:new, :create] do
     
   end
 end
