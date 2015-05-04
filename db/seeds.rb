@@ -1,7 +1,12 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'open-uri'
+
+puts Dir.pwd
+Cast.delete_all
+open("db/rcasts.txt") do |casts|
+  casts.read.each_line do |item|
+    episode, title = item.chomp.split("|")
+    Cast.create!(:episode => episode, :title => title, :watched => "false", :favorite => "false")
+  end
+end
+    
+  
