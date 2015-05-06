@@ -16,4 +16,12 @@ describe CastsController do
     end
   end
   
+  describe 'PUT update' do
+    it 'updates the post' do
+      cast = Fabricate(:cast, watched: false)
+      put :update, id: cast.id, cast: {watched: true}
+      expect(cast.reload.watched).to eq(true)
+    end
+  end
+  
 end
