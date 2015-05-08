@@ -2,4 +2,16 @@
   = cast.episode
   = cast.title
   
+  = cast.watched
+  
+  - if cast.watched?
+    = link_to image_tag('watched.png'), cast_path(cast, cast: {watched: false}), method: :put
+  - else
+    = link_to image_tag('unwatch.png'), cast_path(cast, cast: {watched: true}), method: :put
+  
+  
   %br
+
+    
+    
+    
