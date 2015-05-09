@@ -2,6 +2,8 @@ class CastsController < ApplicationController
   
   def index
     @casts = Cast.all
+    @watched_casts = Cast.done
+    @unwatched_casts = Cast.todo
   end
 
   def update

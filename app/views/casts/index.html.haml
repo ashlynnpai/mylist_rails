@@ -1,14 +1,19 @@
-- @casts.each do |cast|
+%h4 Not Watched
+- @unwatched_casts.each do |cast|
   = cast.episode
   = cast.title
+
+  = link_to image_tag('notwatched.png'), cast_path(cast, cast: {watched: true}), method: :put
   
-  = cast.watched
+  %br
   
-  - if cast.watched?
-    = link_to image_tag('watched.png'), cast_path(cast, cast: {watched: false}), method: :put
-  - else
-    = link_to image_tag('unwatch.png'), cast_path(cast, cast: {watched: true}), method: :put
-  
+
+%h4 Watched
+- @watched_casts.each do |cast|
+  = cast.episode
+  = cast.title
+
+  = link_to image_tag('watched.png'), cast_path(cast, cast: {watched: false}), method: :put
   
   %br
 
