@@ -1,22 +1,25 @@
-%h4 Not Watched
-- @unwatched_casts.each do |cast|
-  = cast.episode
-  = cast.title
+.col-sm-6
+  %h4#heading Not Watched
+  - @unwatched_casts.each do |cast|
+    .col-sm-2
+      = cast.episode
+    .col-sm-8
+      = cast.title
+    .col-sm-2
+      = link_to image_tag('notwatched.png'), cast_path(cast, cast: {watched: true}), method: :put
+    %br
 
-  = link_to image_tag('notwatched.png'), cast_path(cast, cast: {watched: true}), method: :put
-  
-  %br
-  
+.col-sm-6
+  %h4#heading Watched
+  - @watched_casts.each do |cast|
+    .col-sm-2
+      = cast.episode
+    .col-sm-8
+      = cast.title
+    .col-sm-2
+      = link_to image_tag('watched.png'), cast_path(cast, cast: {watched: false}), method: :put 
+    %br
 
-%h4 Watched
-- @watched_casts.each do |cast|
-  = cast.episode
-  = cast.title
 
-  = link_to image_tag('watched.png'), cast_path(cast, cast: {watched: false}), method: :put
-  
-  %br
-
-    
     
     
