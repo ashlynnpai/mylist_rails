@@ -14,6 +14,22 @@ describe CastsController do
       get :index
       expect(response).to render_template('index')
     end
+    
+    it 'sets @watched_casts' do
+      cast1 = Fabricate(:cast, watched: true, updated_at: 3.days.ago)
+      cast2 = Fabricate(:cast, watched: false, updated_at: 3.days.ago)
+      cast3 = Fabricate(:cast, watched: true, updated_at: 1.day.ago)
+      get :index
+      expect(assigns(:watched_casts)).to eq([cast3, cast1])
+    end
+    
+    it 'sets @unwatched_casts' do
+      cast1 = Fabricate(:cast, watched: false, updated_at: 3.days.ago)
+      cast2 = Fabricate(:cast, watched: true, updated_at: 3.days.ago)
+      cast3 = Fabricate(:cast, watched: false, updated_at: 1.day.ago)
+      get :index
+      expect(assigns(:unwatched_casts)).to eq([cast3, cast1])
+    end
   end
   
   describe 'PUT update' do

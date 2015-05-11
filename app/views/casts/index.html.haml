@@ -1,24 +1,37 @@
 .col-sm-6
   %h4#heading Not Watched
-  - @unwatched_casts.each do |cast|
-    .col-sm-2
-      = cast.episode
-    .col-sm-8
-      = cast.title
-    .col-sm-2
-      = link_to image_tag('notwatched.png'), cast_path(cast, cast: {watched: true}), method: :put
-    %br
+  .unwatched_list
+    - @unwatched_casts.each do |cast|
+      .col-sm-1
+        = cast.episode
+      .col-sm-7
+        = cast.title
+      .col-sm-2
+        = link_to image_tag('notwatched.png'), cast_path(cast, cast: {watched: true}), method: :put
+      .col-sm-2
+        - if cast.favorite?
+          = link_to image_tag('fav.png')
+        - else
+          = link_to image_tag('unfav.png')
+      %br
 
 .col-sm-6
   %h4#heading Watched
-  - @watched_casts.each do |cast|
-    .col-sm-2
-      = cast.episode
-    .col-sm-8
-      = cast.title
-    .col-sm-2
-      = link_to image_tag('watched.png'), cast_path(cast, cast: {watched: false}), method: :put 
-    %br
+  .watched_list
+    - @watched_casts.each do |cast|
+      .col-sm-1
+        = cast.episode
+      .col-sm-7
+        = cast.title
+      .col-sm-2
+        = link_to image_tag('watched.png'), cast_path(cast, cast: {watched: false}), method: :put
+      .col-sm-2
+        - if cast.favorite?
+          = link_to image_tag('fav.png')
+        - else
+          = link_to image_tag('unfav.png')
+
+      %br
 
 
     

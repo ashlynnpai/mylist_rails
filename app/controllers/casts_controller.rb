@@ -8,13 +8,12 @@ class CastsController < ApplicationController
 
   def update
   @cast = Cast.find(params[:id])
-
     if @cast.update(params.require(:cast).permit(:title, :episode, :watched, :favorite))
-      flash[:success] = "Status changed for Episode #{@cast.episode}, #{@cast.title}"
-      redirect_to root_path
+      flash[:success] = "Status updating for Episode #{@cast.episode}, #{@cast.title}"
     else
-      flash[:danger] = "There was a problem changing the status for Episode #{@cast.episode}, #{@cast.title}"
+      flash[:danger] = "There was a problem updating the status for Episode #{@cast.episode}, #{@cast.title}"
     end
+    redirect_to root_path
   end
 
   private
