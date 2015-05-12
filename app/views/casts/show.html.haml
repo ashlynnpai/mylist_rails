@@ -1,0 +1,10 @@
+=@cast.episode
+=@cast.title
+- if @cast.watched == false
+  = link_to image_tag('notwatched.png'), cast_path(@cast, cast: {watched: true}), method: :put
+- else
+  = link_to image_tag('watched.png'), cast_path(@cast, cast: {watched: false}), method: :put
+- if @cast.favorite?
+  = link_to image_tag('fav.png')
+- else
+  = link_to image_tag('unfav.png')  

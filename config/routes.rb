@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root to: 'casts#index'
   
-  resources :casts, only: [:index, :update] do
+  resources :casts, only: [:index, :update, :show] do
     
   end
   

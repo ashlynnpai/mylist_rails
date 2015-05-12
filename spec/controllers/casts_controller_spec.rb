@@ -40,4 +40,12 @@ describe CastsController do
     end
   end
   
+  describe 'GET show' do
+    it 'sets @cast' do
+      cast = Fabricate(:cast)
+      get :show, id: cast.id
+      expect(assigns(:cast)).to eq(cast)
+    end
+  end
+  
 end

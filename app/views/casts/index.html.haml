@@ -5,7 +5,7 @@
       .col-sm-1
         = cast.episode
       .col-sm-7
-        = cast.title
+        = link_to cast.title, cast_path(cast)
       .col-sm-2
         = link_to image_tag('notwatched.png'), cast_path(cast, cast: {watched: true}), method: :put
       .col-sm-2
@@ -22,7 +22,7 @@
       .col-sm-1
         = cast.episode
       .col-sm-7
-        = cast.title
+        = link_to cast.title, cast_path(cast)
       .col-sm-2
         = link_to image_tag('watched.png'), cast_path(cast, cast: {watched: false}), method: :put
       .col-sm-2
