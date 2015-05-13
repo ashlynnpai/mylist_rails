@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150502133116) do
+ActiveRecord::Schema.define(version: 20150512122651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(version: 20150502133116) do
     t.boolean  "watched"
     t.datetime "watched_on"
     t.boolean  "favorite"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "railscasts", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "cast_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

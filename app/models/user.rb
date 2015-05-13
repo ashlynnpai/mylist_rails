@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
   
   has_secure_password validations: false
   
+  has_many :railscasts
+  has_many :casts, through: :railscasts
+  
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: {minimum: 7}
   validates :name, presence: true,  uniqueness: { case_sensitive: false }
