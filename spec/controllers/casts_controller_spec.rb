@@ -48,4 +48,26 @@ describe CastsController do
     end
   end
   
+  describe 'POST makelist' do
+    context 'with authenticated user' do
+      let(:user) { Fabricate(:user) }
+      let(:cast) { Fabricate(:cast) }
+      before do
+        session[:user_id] = user.id
+      end
+      it 'creates a Railscast record' do
+        post :makelist, cast_id: cast.id, user_id: user.id
+        expect(Railscast.first.cast_id).to eq(cast.id)
+      end
+      it 'associates the current user with the cast id' do
+        post :makelist, cast_id: cast.id, user_id: user.id
+        expect(Railscast.first.cast_id).to eq(cast.id)
+      end
+      it 'associates the cast with the current user id' do
+        post :makelist, cast_id: cast.id, user_id: user.id
+        expect(Railscast.first.user_id).to eq(user.id)
+      end
+    end
+  end
+  
 end

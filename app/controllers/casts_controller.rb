@@ -19,6 +19,15 @@ class CastsController < ApplicationController
   def show
     @cast = Cast.find(params[:id])
   end
+  
+  def makelist
+    casts = Cast.all
+    casts.each do |cast|
+      railscast = Railscast.new(cast: cast, user: current_user)
+      railscast.save
+    end
+    redirect_to root_path
+  end
 
   private
   

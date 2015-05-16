@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     
   end
   
+  post 'makelist', to: 'casts#makelist'
+  
   resources :users, only: [:new, :create] do
     
   end
