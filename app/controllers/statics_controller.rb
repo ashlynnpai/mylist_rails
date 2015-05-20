@@ -1,0 +1,4 @@
+class StaticsController < ApplicationController
+  
+  
+end

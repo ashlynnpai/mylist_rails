@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root to: 'casts#index'
+  root to: 'statics#index'
   
   resources :casts, only: [:index, :update, :show] do
     collection do
