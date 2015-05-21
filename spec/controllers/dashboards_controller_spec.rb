@@ -18,4 +18,12 @@ describe DashboardsController do
       end
     end
   end
+  context 'with unauthenticated user' do
+    describe 'GET show' do
+      it 'redirects to login' do
+        get :show
+        expect(response).to redirect_to login_path
+      end
+    end
+  end
 end
