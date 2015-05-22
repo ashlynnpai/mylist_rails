@@ -1,10 +1,12 @@
 class CastsController < ApplicationController
+  before_action :require_user
   
   def index
-    @casts = Cast.all
-    @watched_casts = Cast.done
-    @unwatched_casts = Cast.todo
+    @casts = current_user.casts
+    @watched_casts = current_user.casts.done
+    @unwatched_casts = current_user.casts.todo
   end
+
 
   def update
     @cast = Cast.find(params[:id])
@@ -22,6 +24,7 @@ class CastsController < ApplicationController
   
   def makelist
     casts = Cast.all
+    
     casts.each do |cast|
       railscast = Railscast.new(cast: cast, user: current_user)
       railscast.save
@@ -31,5 +34,8 @@ class CastsController < ApplicationController
 
   private
   
+  def require_same_user
+    redirect_to root_path unless logged_in? and (current_user == @user)
+  end
 
 end
