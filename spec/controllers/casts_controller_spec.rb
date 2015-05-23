@@ -26,11 +26,11 @@ describe CastsController do
         cast1 = Fabricate(:cast, updated_at: 3.days.ago)
         cast2 = Fabricate(:cast, updated_at: 3.days.ago)
         cast3 = Fabricate(:cast, updated_at: 1.day.ago)
-        Railscast.create(user_id: user.id, cast_id: cast1.id, watched: true)
-        Railscast.create(user_id: user.id, cast_id: cast2.id, watched: false)
-        Railscast.create(user_id: user.id, cast_id: cast3.id, watched: true)
+        railscast1 = Railscast.create(user_id: user.id, cast_id: cast1.id, watched: true)
+        railscast2 = Railscast.create(user_id: user.id, cast_id: cast2.id, watched: false)
+        railscast3 = Railscast.create(user_id: user.id, cast_id: cast3.id, watched: true)
         get :index
-        expect(assigns(:watched_casts)).to eq([cast3, cast1])
+        expect(assigns(:watched_casts)).to eq([railscast3, railscast1])
       end
       it 'sets @unwatched_casts' do
         cast1 = Fabricate(:cast, updated_at: 3.days.ago)

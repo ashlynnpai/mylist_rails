@@ -3,8 +3,8 @@ class CastsController < ApplicationController
   
   def index
     @casts = current_user.casts
-    @watched_casts = current_user.casts.done
-    @unwatched_casts = current_user.casts.todo
+    @watched_casts = current_user.railscasts.done
+    @unwatched_casts = current_user.railscasts.todo
   end
 
 
