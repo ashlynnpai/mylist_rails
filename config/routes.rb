@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     end
   end
   
+  put 'toggle_watched', to: 'casts#toggle_watched'
+  
   resources :users, only: [:new, :create] do
     
   end

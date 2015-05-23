@@ -36,11 +36,11 @@ describe CastsController do
         cast1 = Fabricate(:cast, updated_at: 3.days.ago)
         cast2 = Fabricate(:cast, updated_at: 3.days.ago)
         cast3 = Fabricate(:cast, updated_at: 1.day.ago)
-        Railscast.create(user_id: user.id, cast_id: cast1.id, watched: false)
-        Railscast.create(user_id: user.id, cast_id: cast2.id, watched: true)
-        Railscast.create(user_id: user.id, cast_id: cast3.id, watched: false)
+        railscast1 = Railscast.create(user_id: user.id, cast_id: cast1.id, watched: false)
+        railscast2 = Railscast.create(user_id: user.id, cast_id: cast2.id, watched: true)
+        railscast3 = Railscast.create(user_id: user.id, cast_id: cast3.id, watched: false)
         get :index
-        expect(assigns(:unwatched_casts)).to eq([cast3, cast1])
+        expect(assigns(:unwatched_casts)).to eq([railscast3, railscast1])
       end
     end
   end
@@ -51,7 +51,7 @@ describe CastsController do
       before do
         session[:user_id] = user.id
       end
-      it 'updates the post' do
+      it 'updates the cast' do
         cast = Fabricate(:cast, watched: false)
         put :update, id: cast.id, cast: {watched: true}
         expect(cast.reload.watched).to eq(true)
@@ -69,6 +69,21 @@ describe CastsController do
         cast = Fabricate(:cast)
         get :show, id: cast.id
         expect(assigns(:cast)).to eq(cast)
+      end
+    end
+  end
+  
+  describe 'PUT toggle_watched' do
+    context 'with authenticated user' do
+      let(:user) { Fabricate(:user) }
+      let(:cast) { Fabricate(:cast) }
+      before do
+        session[:user_id] = user.id
+      end
+      it 'updates the watched status' do
+        railscast = Railscast.create(user_id: user.id, cast_id: cast.id, watched: false)
+        put :toggle_watched, id: railscast.id, user_id: user.id, cast_id: cast.id, watched: true
+        expect(railscast.reload.watched).to eq(true)
       end
     end
   end
