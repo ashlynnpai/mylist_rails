@@ -23,22 +23,22 @@ describe CastsController do
         expect(response).to render_template('index')
       end
       it 'sets @watched_casts' do
-        cast1 = Fabricate(:cast, watched: true, updated_at: 3.days.ago)
-        cast2 = Fabricate(:cast, watched: false, updated_at: 3.days.ago)
-        cast3 = Fabricate(:cast, watched: true, updated_at: 1.day.ago)
-        Railscast.create(user_id: user.id, cast_id: cast1.id)
-        Railscast.create(user_id: user.id, cast_id: cast2.id)
-        Railscast.create(user_id: user.id, cast_id: cast3.id)
+        cast1 = Fabricate(:cast, updated_at: 3.days.ago)
+        cast2 = Fabricate(:cast, updated_at: 3.days.ago)
+        cast3 = Fabricate(:cast, updated_at: 1.day.ago)
+        Railscast.create(user_id: user.id, cast_id: cast1.id, watched: true)
+        Railscast.create(user_id: user.id, cast_id: cast2.id, watched: false)
+        Railscast.create(user_id: user.id, cast_id: cast3.id, watched: true)
         get :index
         expect(assigns(:watched_casts)).to eq([cast3, cast1])
       end
       it 'sets @unwatched_casts' do
-        cast1 = Fabricate(:cast, watched: false, updated_at: 3.days.ago)
-        cast2 = Fabricate(:cast, watched: true, updated_at: 3.days.ago)
-        cast3 = Fabricate(:cast, watched: false, updated_at: 1.day.ago)
-        Railscast.create(user_id: user.id, cast_id: cast1.id)
-        Railscast.create(user_id: user.id, cast_id: cast2.id)
-        Railscast.create(user_id: user.id, cast_id: cast3.id)
+        cast1 = Fabricate(:cast, updated_at: 3.days.ago)
+        cast2 = Fabricate(:cast, updated_at: 3.days.ago)
+        cast3 = Fabricate(:cast, updated_at: 1.day.ago)
+        Railscast.create(user_id: user.id, cast_id: cast1.id, watched: false)
+        Railscast.create(user_id: user.id, cast_id: cast2.id, watched: true)
+        Railscast.create(user_id: user.id, cast_id: cast3.id, watched: false)
         get :index
         expect(assigns(:unwatched_casts)).to eq([cast3, cast1])
       end
