@@ -77,13 +77,19 @@ describe CastsController do
     context 'with authenticated user' do
       let(:user) { Fabricate(:user) }
       let(:cast) { Fabricate(:cast) }
+      #let (:railscast) { Railscast.create(user_id: user.id, cast_id: cast.id, watched: false) }
       before do
         session[:user_id] = user.id
       end
-      it 'updates the watched status' do
+      it 'updates the watched status to true' do      
         railscast = Railscast.create(user_id: user.id, cast_id: cast.id, watched: false)
         put :toggle_watched, id: railscast.id, user_id: user.id, cast_id: cast.id, watched: true
         expect(railscast.reload.watched).to eq(true)
+      end
+      it 'updates the watched status to false' do      
+        railscast = Railscast.create(user_id: user.id, cast_id: cast.id, watched: true)
+        put :toggle_watched, id: railscast.id, user_id: user.id, cast_id: cast.id, watched: false
+        expect(railscast.reload.watched).to eq(false)
       end
     end
   end

@@ -23,14 +23,13 @@ class CastsController < ApplicationController
   end
 
   def toggle_watched
-    @railscast = Railscast.find(params[:id])
-    @cast = Railscast.find(params[:cast_id])
+    @cast = Cast.find(params[:cast_id])
     watched_status = params[:watched]
       if find_railscast
         find_railscast.update_column(:watched, watched_status)
         find_railscast.save  
       else
-        flash[:danger] = "Error."
+        flash[:danger] = "Railscast not found."
       end
     redirect_to casts_path
   end
