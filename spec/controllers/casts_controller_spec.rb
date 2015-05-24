@@ -52,9 +52,9 @@ describe CastsController do
         session[:user_id] = user.id
       end
       it 'updates the cast' do
-        cast = Fabricate(:cast, watched: false)
-        put :update, id: cast.id, cast: {watched: true}
-        expect(cast.reload.watched).to eq(true)
+        cast = Fabricate(:cast, title: 'old_title')
+        put :update, id: cast.id, cast: {title: 'new_title'}
+        expect(cast.reload.title).to eq('new_title')
       end
     end
   end
