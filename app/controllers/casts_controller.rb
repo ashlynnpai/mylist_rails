@@ -38,7 +38,7 @@ class CastsController < ApplicationController
     casts = Cast.all
     
     casts.each do |cast|
-      railscast = Railscast.new(cast: cast, user: current_user)
+      railscast = Railscast.new(cast: cast, user: current_user, watched: false, favorite: false)
       railscast.save
     end
     redirect_to root_path

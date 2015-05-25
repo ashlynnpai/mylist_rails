@@ -77,7 +77,6 @@ describe CastsController do
     context 'with authenticated user' do
       let(:user) { Fabricate(:user) }
       let(:cast) { Fabricate(:cast) }
-      #let (:railscast) { Railscast.create(user_id: user.id, cast_id: cast.id, watched: false) }
       before do
         session[:user_id] = user.id
       end
