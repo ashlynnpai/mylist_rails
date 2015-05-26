@@ -91,6 +91,14 @@ describe CastsController do
         expect(railscast.reload.watched).to eq(false)
       end
     end
+    context 'with unauthenticated user' do     
+      let(:cast) { Fabricate(:cast) }
+      it 'redirects to login' do
+        railscast = Railscast.create(cast_id: cast.id, watched: false)
+        put :toggle_watched, id: railscast.id, cast_id: cast.id, watched: true
+        expect(response).to redirect_to login_path
+      end
+    end
   end
   
   describe 'POST makelist' do
