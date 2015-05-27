@@ -43,6 +43,17 @@ describe CastsController do
         expect(assigns(:unwatched_casts)).to eq([railscast3, railscast1])
       end
     end
+    context 'with unauthenticated user' do
+      it 'redirects to login' do
+        cast1 = Fabricate(:cast)
+        cast2 = Fabricate(:cast)
+        user = Fabricate(:user)
+        Railscast.create(user_id: user.id, cast_id: cast1.id)
+        Railscast.create(user_id: user.id, cast_id: cast2.id)
+        get :index
+        expect(response).to redirect_to login_path
+      end
+    end
   end
   
   describe 'PUT update' do
