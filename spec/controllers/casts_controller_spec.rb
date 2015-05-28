@@ -82,6 +82,13 @@ describe CastsController do
         expect(assigns(:cast)).to eq(cast)
       end
     end
+    context 'with unauthenticated user' do
+      it 'redirects to login' do
+        cast = Fabricate(:cast)
+        get :show, id: cast.id
+        expect(response).to redirect_to login_path
+      end
+    end
   end
   
   describe 'PUT toggle_watched' do
