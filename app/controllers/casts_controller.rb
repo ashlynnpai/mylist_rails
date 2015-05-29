@@ -20,6 +20,7 @@ class CastsController < ApplicationController
   
   def show
     @cast = Cast.find(params[:id])
+    @railscast = Railscast.where(user_id: current_user.id, cast: @cast).first
   end
 
   def toggle_watched

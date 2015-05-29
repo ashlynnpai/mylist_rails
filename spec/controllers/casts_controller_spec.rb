@@ -81,6 +81,12 @@ describe CastsController do
         get :show, id: cast.id
         expect(assigns(:cast)).to eq(cast)
       end
+      it 'sets @railscast' do
+        cast = Fabricate(:cast)
+        railscast = Railscast.create(user_id: user.id, cast_id: cast.id)
+        get :show, id: cast.id
+        expect(assigns(:cast)).to eq(cast)
+      end
     end
     context 'with unauthenticated user' do
       it 'redirects to login' do
