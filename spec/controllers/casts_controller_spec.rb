@@ -83,9 +83,10 @@ describe CastsController do
       end
       it 'sets @railscast' do
         cast = Fabricate(:cast)
-        railscast = Railscast.create(user_id: user.id, cast_id: cast.id)
+        railscast = Railscast.create(user_id: user.id, cast_id: cast.id, comment: 'my new comment')
         get :show, id: cast.id
         expect(assigns(:cast)).to eq(cast)
+        expect(railscast.comment).to eq('my new comment')
       end
     end
     context 'with unauthenticated user' do
