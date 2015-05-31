@@ -1,10 +1,21 @@
-=@cast.episode
-=@cast.title
-- if @cast.watched == false
-  = link_to image_tag('notwatched.png'), cast_path(@cast, cast: {watched: true}), method: :put
+%h3 Episode Number #{@cast.episode}
+%h3 #{@cast.title}
+- if @railscast.watched == false
+  %h5 Mark as Watched
+  = link_to image_tag('notwatched.png'), toggle_watched_path(id: @railscast.id, cast_id: @railscast.cast.id, user_id: current_user.id, watched: true), method: :put
 - else
-  = link_to image_tag('watched.png'), cast_path(@cast, cast: {watched: false}), method: :put
-- if @cast.favorite?
+  %h5 Mark as Not Watched
+  = link_to image_tag('watched.png'), toggle_watched_path(id: @railscast.id, cast_id: @railscast.cast.id, user_id: current_user.id, watched: false), method: :put
+  
+- if @railscast.favorite?
+  %h5 Add to Favorites
   = link_to image_tag('fav.png')
 - else
+  %h5 Remove from Favorites
   = link_to image_tag('unfav.png')  
+  
+- if @railscast.comment != nil
+  = @railscast.comment
+
+- else
+  %h5 Add Comment
