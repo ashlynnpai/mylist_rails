@@ -1,0 +1,8 @@
+= form_for @railscast, url: {action: 'modify_comment'}, method: :patch do |f|
+  %fieldset
+  .form-group
+    %br
+    =f.text_area :comment, rows: 6, class: "form-control" 
+    %fieldset.form-group.actions.clearfix
+    %input(type="submit" value="Submit" class="btn btn-success")
+

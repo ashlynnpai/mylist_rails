@@ -19,3 +19,7 @@
 
 - else
   %h5 Add Comment
+
+- railscast = @railscast
+= render 'casts/comment', railscast: railscast
+

@@ -22,6 +22,17 @@ class CastsController < ApplicationController
     @cast = Cast.find(params[:id])
     @railscast = Railscast.where(user_id: current_user.id, cast: @cast).first
   end
+  
+  def modify_comment
+    @railscast = Railscast.find(params[:id])
+    comment = params[:comment]
+      if @railscast.update_column(:comment, comment)
+        @railscast.save  
+      else
+        flash[:danger] = "Railscast not found."
+      end
+    redirect_to casts_path
+  end
 
   def toggle_watched
     @cast = Cast.find(params[:cast_id])

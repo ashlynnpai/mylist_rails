@@ -98,6 +98,27 @@ describe CastsController do
     end
   end
   
+  describe 'PATCH modify_comment' do
+    context 'with authenticated user' do
+      let(:user) { Fabricate(:user) }
+      let(:cast) { Fabricate(:cast) }
+      before do
+        session[:user_id] = user.id
+      end
+      it 'modifies the comment' do
+        railscast = Railscast.create(user_id: user.id, cast_id: cast.id, comment: 'old comment')
+        patch :modify_comment, id: railscast.id, user_id: user.id, cast_id: cast.id, comment: 'new comment'
+        expect(railscast.reload.comment).to eq('new comment')
+      end
+      it 'adds a new comment if comment is nil' do
+        railscast = Railscast.create(user_id: user.id, cast_id: cast.id, comment: nil)
+        patch :modify_comment, id: railscast.id, user_id: user.id, cast_id: cast.id, comment: 'new comment'
+        expect(railscast.reload.comment).to eq('new comment')
+      end
+    end
+  end
+  
+  
   describe 'PUT toggle_watched' do
     context 'with authenticated user' do
       let(:user) { Fabricate(:user) }
