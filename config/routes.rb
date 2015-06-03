@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     
   end
   
+  resources :notes, only: [:new]
+  
   resource :dashboard, only: [:show]
   
   get '/register', to: 'users#new'  
