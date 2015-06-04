@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     
   end
   
-  resources :notes, only: [:new]
+  resources :notes, only: [:new, :create]
   
   resource :dashboard, only: [:show]
   

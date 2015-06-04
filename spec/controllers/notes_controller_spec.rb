@@ -9,4 +9,20 @@ describe NotesController do
       assigns(:note).kind_of?(Note).should be_truthy
     end
   end
+  
+  describe 'POST create' do
+    context "with authenticated users" do
+      let(:cast) { Fabricate(:cast) }
+      let(:current_user) { Fabricate(:user) }
+      before { session[:user_id] = current_user.id }
+      context 'with valid input' do
+        it 'redirects to cast_path' do
+          railscast = Railscast.create(cast_id: cast.id, user_id: current_user.id)
+          post :create, note: Fabricate.attributes_for(:note), railscast_id: railscast.id
+
+          expect(response).to redirect_to cast_path(cast)
+        end
+      end
+    end
+  end
 end
