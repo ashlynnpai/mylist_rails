@@ -7,7 +7,9 @@ class NotesController < ApplicationController
   def create
     @railscast = Railscast.find(params[:railscast_id])
     @note = @railscast.notes.build(params.require(:note).permit(:content))
-    redirect_to cast_path(@railscast.cast)
+    if @note.save
+      redirect_to cast_path(@railscast.cast)
+    end
   end
 
 end
