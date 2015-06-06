@@ -26,6 +26,11 @@ describe NotesController do
           post :create, note: Fabricate.attributes_for(:note), railscast_id: railscast.id
           expect(Note.first.railscast).to eq(railscast)
         end
+        it "sets the flash success message" do
+          railscast = Railscast.create(cast_id: cast.id, user_id: current_user.id)
+          post :create, note: Fabricate.attributes_for(:note), railscast_id: railscast.id
+          expect(flash[:success]).not_to be_blank
+        end
       end
     end
   end
