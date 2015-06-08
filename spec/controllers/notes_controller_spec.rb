@@ -32,6 +32,23 @@ describe NotesController do
           expect(flash[:success]).not_to be_blank
         end
       end
+      context 'with invalid input' do
+        it 'redirects to cast_path' do
+          railscast = Railscast.create(cast_id: cast.id, user_id: current_user.id)
+          post :create, note: Fabricate.attributes_for(:note, content: nil), railscast_id: railscast.id
+          expect(response).to redirect_to cast_path(cast)
+        end
+        it 'does not create a note' do
+          railscast = Railscast.create(cast_id: cast.id, user_id: current_user.id)
+          post :create, note: Fabricate.attributes_for(:note, content: nil), railscast_id: railscast.id
+          expect(Note.count).to eq(0)
+        end
+        it "sets the flash danger message" do
+          railscast = Railscast.create(cast_id: cast.id, user_id: current_user.id)
+          post :create, note: Fabricate.attributes_for(:note, content: nil), railscast_id: railscast.id
+          expect(flash[:danger]).not_to be_blank
+        end
+      end
     end
   end
 end
