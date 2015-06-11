@@ -3,10 +3,14 @@ require 'spec_helper'
 describe NotesController do
   
   describe 'GET new' do
-    it "assigns a new note as @note" do
-      get :new
-      assigns(:note).should be_new_record
-      assigns(:note).kind_of?(Note).should be_truthy
+    context "with authenticated users" do
+      let(:current_user) { Fabricate(:user) }
+      before { session[:user_id] = current_user.id }
+      it "assigns a new note as @note" do
+        get :new
+        assigns(:note).should be_new_record
+        assigns(:note).kind_of?(Note).should be_truthy
+      end
     end
   end
   
@@ -60,4 +64,17 @@ describe NotesController do
       end
     end
   end
+  
+  describe 'GET show' do
+    context "with authenticated users" do
+      let(:current_user) { Fabricate(:user) }
+      before { session[:user_id] = current_user.id }
+      it 'sets @note' do
+        note = Fabricate(:note)
+        get :show, id: note.id
+        expect(assigns(:note)).to eq(note)
+      end 
+    end
+  end
 end
+

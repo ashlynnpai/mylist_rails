@@ -15,5 +15,9 @@ class NotesController < ApplicationController
     end
     redirect_to cast_path(@railscast.cast)
   end
+  
+  def show
+    @note = Note.find(params[:id])
+  end
 
 end
