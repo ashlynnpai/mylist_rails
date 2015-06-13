@@ -57,7 +57,7 @@ describe NotesController do
     context "with unauthenticated users" do
       let(:cast) { Fabricate(:cast) }
       let(:user) { Fabricate(:user) }
-      it 'redirects to cast_path' do
+      it 'redirects to login_path' do
         railscast = Railscast.create(cast_id: cast.id, user_id: user.id)
         post :create, note: Fabricate.attributes_for(:note), railscast_id: railscast.id
         expect(response).to redirect_to login_path
@@ -74,6 +74,13 @@ describe NotesController do
         get :show, id: note.id
         expect(assigns(:note)).to eq(note)
       end 
+    end
+    context "with unauthenticated users" do
+      it 'redirects to login_path' do
+        note = Fabricate(:note)
+        get :show, id: note.id
+        expect(response).to redirect_to login_path
+      end
     end
   end
 end
