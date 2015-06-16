@@ -78,6 +78,7 @@ describe CastsController do
       end
       it 'sets @cast' do
         cast = Fabricate(:cast)
+        railscast = Railscast.create(user_id: user.id, cast_id: cast.id, comment: 'my new comment')
         get :show, id: cast.id
         expect(assigns(:cast)).to eq(cast)
       end
@@ -87,6 +88,13 @@ describe CastsController do
         get :show, id: cast.id
         expect(assigns(:cast)).to eq(cast)
         expect(railscast.comment).to eq('my new comment')
+      end
+      it 'assigns a new note as @note' do
+        cast = Fabricate(:cast)
+        railscast = Railscast.create(user_id: user.id, cast_id: cast.id, comment: 'my new comment')
+        get :show, id: cast.id
+        assigns(:note).should be_new_record
+        assigns(:note).kind_of?(Note).should be_truthy
       end
     end
     context 'with unauthenticated user' do
