@@ -1,5 +1,6 @@
-= form_for [@railscast, note], url: notes_path(id: @railscast.id, cast_id: @railscast.cast.id), method: :post do |f|
+= form_for [@cast, note], url: notes_path, method: :post do |f|
   =f.text_area :content, rows: 4, class: "form-control"
   %input(type="submit" value="Submit" class="btn btn-success")
+
   
   

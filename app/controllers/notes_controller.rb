@@ -2,7 +2,8 @@ class NotesController < ApplicationController
   before_action :require_user
   
   def create
-    @railscast = Railscast.find(params[:railscast_id])
+    @cast = Cast.find(params[:id])
+    @railscast = Railscast.where(user_id: current_user.id, cast: @cast).first
     @note = @railscast.notes.build(params.require(:note).permit(:content))
     if @note.save
       flash[:success] = "Your note was created."

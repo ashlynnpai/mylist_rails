@@ -9,4 +9,6 @@ describe User do
   it { should validate_uniqueness_of(:name) }
   
   it { should have_many(:casts) }
+  it { should have_many(:notes) }
+  
 end

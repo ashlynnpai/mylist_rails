@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   
   has_many :railscasts
   has_many :casts, through: :railscasts
+  has_many :notes
   
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: {minimum: 7}

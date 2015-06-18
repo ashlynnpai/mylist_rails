@@ -4,5 +4,6 @@ describe Note do
   
   it { should belong_to(:railscast) }
   it { should validate_presence_of(:content) }
+  it { should belong_to(:creator) }
   
 end
