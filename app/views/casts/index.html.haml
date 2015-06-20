@@ -5,7 +5,7 @@
       .col-sm-1
         = railscast.cast.episode
       .col-sm-7
-        = link_to railscast.cast.title, cast_path(railscast.cast)
+        = link_to railscast.cast.title, railscast_path(railscast)
       .col-sm-2
         = link_to image_tag('notwatched.png'), toggle_watched_path(id: railscast.id, cast_id: railscast.cast.id, user_id: current_user.id, watched: true), method: :put
       .col-sm-2
@@ -22,7 +22,7 @@
       .col-sm-1
         = railscast.cast.episode
       .col-sm-7
-        = link_to railscast.cast.title, cast_path(railscast.cast)
+        = link_to railscast.cast.title, railscast_path(railscast)
       .col-sm-2
         = link_to image_tag('notwatched.png'), toggle_watched_path(id: railscast.id, cast_id: railscast.cast.id, user_id: current_user.id, watched: false), method: :put
       .col-sm-2
