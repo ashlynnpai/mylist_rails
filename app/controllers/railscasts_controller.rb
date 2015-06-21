@@ -3,6 +3,8 @@ class RailscastsController < ApplicationController
   
   def show
     @railscast = Railscast.find(params[:id])
+    @notes = @railscast.notes
+    @note = Note.new
   end
 
   

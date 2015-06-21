@@ -1,2 +1,24 @@
 %h4 Episode #{@railscast.cast.episode}
 %h4= @railscast.cast.title
+
+- if @railscast.watched == false
+  %h5 Mark as Watched
+  = link_to image_tag('notwatched.png'), toggle_watched_path(id: @railscast.id, cast_id: @railscast.cast.id, user_id: current_user.id, watched: true), method: :put
+- else
+  %h5 Mark as Not Watched
+  = link_to image_tag('watched.png'), toggle_watched_path(id: @railscast.id, cast_id: @railscast.cast.id, user_id: current_user.id, watched: false), method: :put
+  
+- if @railscast.favorite?
+  %h5 Add to Favorites
+  = link_to image_tag('fav.png')
+- else
+  %h5 Remove from Favorites
+  = link_to image_tag('unfav.png')  
+  
+%h4 Notes
+- @notes.each do |note|
+  %p= note.content
+
+.well
+  - note = @note
+  = render 'notes/note', note: @note

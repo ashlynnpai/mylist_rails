@@ -15,9 +15,11 @@ Rails.application.routes.draw do
     
   end
   
-  resources :railscasts, only: [:show]
+  resources :railscasts, only: [:show] do
+    resources :notes, only: [:create]    
+  end
   
-  resources :notes, only: [:create]
+  
   
   resource :dashboard, only: [:show]
   
