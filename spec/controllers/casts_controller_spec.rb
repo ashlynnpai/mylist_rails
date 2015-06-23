@@ -70,42 +70,6 @@ describe CastsController do
     end
   end
   
-  describe 'GET show' do
-    context 'with authenticated user' do
-      let(:user) { Fabricate(:user) }
-      before do
-        session[:user_id] = user.id
-      end
-      it 'sets @cast' do
-        cast = Fabricate(:cast)
-        railscast = Railscast.create(user_id: user.id, cast_id: cast.id, comment: 'my new comment')
-        get :show, id: cast.id
-        expect(assigns(:cast)).to eq(cast)
-      end
-      it 'sets @railscast' do
-        cast = Fabricate(:cast)
-        railscast = Railscast.create(user_id: user.id, cast_id: cast.id, comment: 'my new comment')
-        get :show, id: cast.id
-        expect(assigns(:cast)).to eq(cast)
-        expect(railscast.comment).to eq('my new comment')
-      end
-      it 'assigns a new note as @note' do
-        cast = Fabricate(:cast)
-        railscast = Railscast.create(user_id: user.id, cast_id: cast.id, comment: 'my new comment')
-        get :show, id: cast.id
-        assigns(:note).should be_new_record
-        assigns(:note).kind_of?(Note).should be_truthy
-      end
-    end
-    context 'with unauthenticated user' do
-      it 'redirects to login' do
-        cast = Fabricate(:cast)
-        get :show, id: cast.id
-        expect(response).to redirect_to login_path
-      end
-    end
-  end
-  
   describe 'PATCH modify_comment' do
     context 'with authenticated user' do
       let(:user) { Fabricate(:user) }

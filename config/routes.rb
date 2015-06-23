@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root to: 'statics#index'
   
-  resources :casts, only: [:index, :update, :show] do
+  resources :casts, only: [:index, :update] do
     collection do
       post 'makelist'
     end

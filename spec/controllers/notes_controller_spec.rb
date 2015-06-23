@@ -11,7 +11,7 @@ describe NotesController do
         it 'redirects to cast_path' do
           railscast = Railscast.create(cast_id: cast.id, user_id: current_user.id)
           post :create, note: Fabricate.attributes_for(:note), railscast_id: railscast.id          
-          expect(response).to redirect_to cast_path(cast)
+          expect(response).to redirect_to railscast_path(railscast)
         end
         it 'creates a note associated with the railscast' do
           railscast = Railscast.create(cast_id: cast.id, user_id: current_user.id)

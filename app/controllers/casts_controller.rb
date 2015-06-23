@@ -18,13 +18,6 @@ class CastsController < ApplicationController
     redirect_to root_path
   end
   
-  def show
-    @cast = Cast.find(params[:id])
-    @railscast = Railscast.where(user_id: current_user.id, cast: @cast).first
-    @notes = @railscast.notes
-    @note = Note.new
-  end
-  
   def modify_comment
     @railscast = Railscast.find(params[:id])
     comment = params[:comment]
