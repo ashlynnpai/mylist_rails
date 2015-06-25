@@ -13,6 +13,13 @@ describe RailscastsController do
         get :show, id: railscast.id
         expect(assigns(:railscast)).to eq(railscast)
       end
+      it 'assigns @note' do
+        cast = Fabricate(:cast)
+        railscast = Railscast.create(user_id: user.id, cast_id: cast.id)
+        get :show, id: railscast.id
+        assigns(:note).should be_new_record
+        assigns(:note).kind_of?(Note).should be_truthy
+        end
     end
   end
 end
