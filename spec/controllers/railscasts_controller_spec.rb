@@ -19,7 +19,16 @@ describe RailscastsController do
         get :show, id: railscast.id
         assigns(:note).should be_new_record
         assigns(:note).kind_of?(Note).should be_truthy
-        end
+      end
     end
+    context 'with unauthenticated user' do
+      let(:user) { Fabricate(:user) }
+      it 'redirects to login' do
+        cast = Fabricate(:cast)
+        railscast = Railscast.create(user_id: user.id, cast_id: cast.id)
+        get :show, id: railscast.id
+        expect(response).to redirect_to login_path
+      end
+    end    
   end
 end
