@@ -128,7 +128,7 @@ describe CastsController do
       end
       it 'creates a Railscast record' do
         post :makelist, cast_id: cast.id, user_id: user.id
-        expect(Railscast.first.cast_id).to eq(cast.id)
+        expect(Railscast.count).to eq(1)
       end
       it 'associates the current user with the cast id' do
         post :makelist, cast_id: cast.id, user_id: user.id
