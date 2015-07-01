@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   put 'toggle_watched', to: 'casts#toggle_watched'
   patch 'modify_comment', to: 'casts#modify_comment'
   
-  resources :users, only: [:new, :create] do
+  resources :users, only: [:new, :create, :show] do
     
   end
   
