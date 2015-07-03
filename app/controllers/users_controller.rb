@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    @watched_casts = current_user.railscasts.done
   end
   
   def dashboard

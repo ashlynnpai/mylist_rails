@@ -1,0 +1,9 @@
+%h4= @user.name
+
+
+%h3 Completed Tasks
+
+%h5 Railscasts Watched #{@watched_casts.count}
+
+- @watched_casts.each do |railscast|
+   %p= railscast.cast.title
