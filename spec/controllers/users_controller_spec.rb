@@ -42,14 +42,29 @@ describe UsersController do
   end
   
   describe 'GET show' do
-    let(:user){ Fabricate(:user) }
-    it "sets @user" do
-      get :show, id: user.id
-      expect(assigns(:user)).to eq(user)
-    end
-    it "renders the :show template" do
-      get :show, id: user.id
-      expect(response).to render_template(:show)
+    context "with authenticated user" do
+      let(:user){ Fabricate(:user) }
+      before do
+        session[:user_id] = user.id
+      end
+      it "sets @user" do
+        get :show, id: user.id
+        expect(assigns(:user)).to eq(user)
+      end
+      it "renders the :show template" do
+        get :show, id: user.id
+        expect(response).to render_template(:show)
+      end
+      it "sets @watched_casts" do
+        cast1 = Fabricate(:cast)
+        cast2 = Fabricate(:cast)
+        cast3 = Fabricate(:cast)
+        railscast1 = Railscast.create(cast_id: cast1.id, user_id: user.id, watched: true)
+        railscast2 = Railscast.create(cast_id: cast1.id, user_id: user.id, watched: false)
+        railscast3 = Railscast.create(cast_id: cast1.id, user_id: user.id, watched: true)
+        get :show, id: user.id
+        expect(assigns(:watched_casts)).to eq([railscast3, railscast1])
+      end
     end
   end
   
