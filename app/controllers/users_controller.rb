@@ -15,7 +15,11 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @watched_casts = current_user.railscasts.done
+    if @user.public_profile == true || @user == current_user
+      @watched_casts = @user.railscasts.done
+    else
+      redirect_to root_path
+    end
   end
   
   def dashboard

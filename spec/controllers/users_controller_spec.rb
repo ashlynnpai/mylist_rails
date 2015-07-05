@@ -66,6 +66,22 @@ describe UsersController do
         expect(assigns(:watched_casts)).to eq([railscast3, railscast1])
       end
     end
+    context "with unauthenticated user" do
+      context "with profile set to public" do  
+        let(:user){ Fabricate(:user, public_profile: true) }
+        it "shows the public profile" do
+          get :show, id: user.id
+          expect(response).to render_template(:show)
+        end
+      end
+      context "with profile set to private" do  
+        let(:user){ Fabricate(:user, public_profile: false) }
+        it "redirects to the root path" do
+          get :show, id: user.id
+          expect(response).to redirect_to root_path
+        end
+      end
+    end
   end
   
 end
