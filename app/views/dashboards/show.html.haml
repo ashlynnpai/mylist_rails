@@ -6,3 +6,12 @@
   .col-sm-6
     = link_to 'Create Railscasts Lists', makelist_casts_path, method: :post
 
+
+%h4 Profile Settings
+
+= bootstrap_form_for @user do |f|
+  = f.label :public_profie, "Make Public", :value => "true"
+  = f.radio_button :public_profile, true
+  = f.label :public_profie, "Make Private", :value => "false"
+  = f.radio_button :public_profile, false, :checked => true
+  = f.submit('Update Profile', class: 'btn btn-success')
