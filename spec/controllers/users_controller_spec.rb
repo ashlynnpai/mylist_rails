@@ -84,4 +84,11 @@ describe UsersController do
     end
   end
   
+  describe "GET edit" do
+    let(:user){ Fabricate(:user) }
+    it "renders the edit template" do
+      get :edit, id: user.id
+    end
+  end
+  
 end

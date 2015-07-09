@@ -22,6 +22,10 @@ class UsersController < ApplicationController
     end
   end
   
+  def edit
+    
+  end
+  
   def dashboard
     @user = User.find(params[:id])
   end
