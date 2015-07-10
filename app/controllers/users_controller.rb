@@ -23,7 +23,8 @@ class UsersController < ApplicationController
   end
   
   def edit
-    
+    @user = User.find(params[:id])
+    require_same_user
   end
   
   def dashboard
@@ -34,6 +35,10 @@ class UsersController < ApplicationController
   
   def user_params
     params.require(:user).permit(:email, :name, :password, :password_confirmation)
+  end
+  
+  def require_same_user
+    redirect_to root_path unless logged_in? and (current_user == @user)
   end
   
 end

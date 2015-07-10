@@ -85,10 +85,17 @@ describe UsersController do
   end
   
   describe "GET edit" do
-    let(:user){ Fabricate(:user) }
-    it "renders the edit template" do
-      get :edit, id: user.id
+    context "with authenticated user" do
+      let(:user){ Fabricate(:user) }
+      before {session[:user_id] = user.id}
+      it "renders the edit template" do
+        get :edit, id: user.id
+        expect(response).to render_template :edit
+      end
+      it "sets @user" do
+        get :edit, id: user.id
+        expect(assigns(:user)).to eq(user)
+      end
     end
-  end
-  
+  end 
 end
