@@ -97,5 +97,13 @@ describe UsersController do
         expect(assigns(:user)).to eq(user)
       end
     end
+    context "with unauthenticated user" do
+      let(:user){ Fabricate(:user) }
+      it "redirects to the root path" do
+        get :edit, id: user.id
+        expect(response).to redirect_to root_path
+      end
+    end
+   
   end 
 end
