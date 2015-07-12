@@ -27,6 +27,15 @@ class UsersController < ApplicationController
     require_same_user
   end
   
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      redirect_to user_path(@user)
+    else
+      redirect_to root_path
+    end
+  end
+  
   def dashboard
     @user = User.find(params[:id])
   end
