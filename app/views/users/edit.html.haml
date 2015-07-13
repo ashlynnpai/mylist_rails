@@ -1,0 +1,14 @@
+%section.container
+  .row
+    .col-sm-8
+      .form-horizontal
+        = bootstrap_form_for @user do |f|
+          %header
+            %h3 Sign up.
+          %fieldset
+            .col-sm-6
+              = f.password_field :password, label: "New Password"
+              = f.password_field :password_confirmation, label: "Confirm New Password"      
+          %fieldset.actions.control-group
+            .controls
+              = f.submit('Update Profile', class: 'btn btn-success') 
