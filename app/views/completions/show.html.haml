@@ -1,0 +1,12 @@
+%h2 Things completed
+
+
+%h5 Railscasts Watched #{@watched_casts.count}
+
+.col-sm-6
+  .watched_list
+    - @watched_casts.each do |railscast|
+      .col-sm-1
+        = railscast.cast.episode
+      .col-sm-7
+        = link_to railscast.cast.title, railscast_path(railscast)
