@@ -52,5 +52,12 @@ describe NotesController do
       end
     end
   end
+  describe "GET edit" do
+    let(:note) { Fabricate(:note) }
+    it 'renders the template show' do
+      get :edit, note: note.id
+      expect(response).to render_template :edit
+    end
+  end
 end
 

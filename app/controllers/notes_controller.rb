@@ -14,6 +14,8 @@ class NotesController < ApplicationController
       render 'casts/show'
     end
     
+    def edit
+    end
+    
   end
-
 end
