@@ -15,6 +15,8 @@ class NotesController < ApplicationController
     end
     
     def edit
+      @note = Note.find(params[id])
+      @railscast = @note.railscast
     end
     
   end

@@ -53,10 +53,20 @@ describe NotesController do
     end
   end
   describe "GET edit" do
-    let(:note) { Fabricate(:note) }
-    it 'renders the template show' do
-      get :edit, note: note.id
+    let(:cast) { Fabricate(:cast) }
+    let(:user) { Fabricate(:user) }
+    before { session[:user_id] = user.id }
+    it 'renders the template edit' do
+      railscast = Railscast.create(cast_id: cast.id, user_id: user.id)
+      note = Fabricate(:note, railscast_id: railscast.id, user_id: user.id)
+      get :edit, railscast_id: railscast.id, id: note.id
       expect(response).to render_template :edit
+    end
+    it 'sets @note' do
+      railscast = Railscast.create(cast_id: cast.id, user_id: user.id)
+      note = Fabricate(:note, railscast_id: railscast.id, user_id: user.id)
+      get :edit, railscast_id: railscast.id, id: note.id
+      expect(assigns(:note)).to eq(note)
     end
   end
 end

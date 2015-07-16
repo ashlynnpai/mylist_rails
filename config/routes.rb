@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
   
   resources :railscasts, only: [:show] do
-    resources :notes, only: [:create]    
+    resources :notes, only: [:create, :edit]    
   end
   
   
