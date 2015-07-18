@@ -13,11 +13,10 @@ class NotesController < ApplicationController
       @notes = @railscast.notes.reload
       render 'casts/show'
     end
+  end
     
     def edit
       @note = Note.find(params[:id])
       @railscast = @note.railscast
     end
-    
-  end
 end
