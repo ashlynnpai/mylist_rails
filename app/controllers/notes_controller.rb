@@ -18,5 +18,12 @@ class NotesController < ApplicationController
     def edit
       @note = Note.find(params[:id])
       @railscast = @note.railscast
+      require_same_user
     end
+  
+   private
+  
+  def require_same_user
+    redirect_to login_path unless logged_in? and (current_user == @note.creator)
+  end
 end
