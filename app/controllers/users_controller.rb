@@ -27,9 +27,10 @@ class UsersController < ApplicationController
     require_same_user
   end
   
-  def update
+  def make_private
     @user = User.find(params[:id])
-    if @user.update_attributes(user_params)
+    # validations won't block user update
+    if @user.update_attribute(:public_profile, false)
       redirect_to user_path(@user)
     else
       redirect_to root_path

@@ -104,10 +104,10 @@ describe UsersController do
         expect(response).to redirect_to root_path
       end
     end
-    describe "PATCH update" do
+    describe "make private" do
       let(:user){ Fabricate(:user) }
-      it "redirects to the root path" do
-        patch :update, id: user.id, user: {public_profile: false}
+      it "redirects to the user path" do
+        patch :make_private, id: user.id, user: {public_profile: false}
         expect(response).to redirect_to user_path(user)
       end
     end
