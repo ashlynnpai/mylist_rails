@@ -31,10 +31,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     # validations won't block user update
     if @user.update_attribute(:public_profile, false)
-      redirect_to user_path(@user)
+      flash[:success] = "Profile set to private."
     else
-      redirect_to root_path
+      flash[:danger] = "Profile has not been changed."
     end
+    redirect_to dashboard_path
   end
   
   def dashboard
