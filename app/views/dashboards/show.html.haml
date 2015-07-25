@@ -11,17 +11,6 @@
 
 - if @user.public_profile == true
   %p Your profile is currently public
-  = bootstrap_form_for @user do |f|
-    = f.label :public_profile, "Make Public", :value => "true"
-    = f.radio_button :public_profile, true, :checked => false
-    = f.label :public_profile, "Make Private", :value => "false"
-    = f.radio_button :public_profile, false
-    = f.submit('Make Profile Private', class: 'btn btn-success')
+
 - else
   %p Your profile is currently private
-  = bootstrap_form_for @user do |f|
-    = f.label :public_profile, "Make Public", :value => "true"
-    = f.radio_button :public_profile, true
-    = f.label :public_profile, "Make Private", :value => "false"
-    = f.radio_button :public_profile, false, :checked => true
-    = f.submit('Make Profile Private', class: 'btn btn-success')
