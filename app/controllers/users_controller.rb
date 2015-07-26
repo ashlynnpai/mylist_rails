@@ -28,8 +28,8 @@ class UsersController < ApplicationController
   end
   
   def make_private
-    @user = User.find(params[:id])
-    if logged_in? and (current_user == @user)
+    @user = current_user
+    if current_user
     # validations won't block user update
       if @user.update_attribute(:public_profile, false)
         flash[:success] = "Profile set to private."
