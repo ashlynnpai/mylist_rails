@@ -106,8 +106,8 @@ describe UsersController do
     end
     describe "make private" do
       context "with authenticated user" do
-      let(:user){ Fabricate(:user) }
-      before {session[:user_id] = user.id}
+        let(:user){ Fabricate(:user) }
+        before {session[:user_id] = user.id}
         it "redirects to the user path" do
           patch :make_private, id: user.id, user: {public_profile: false}
           expect(response).to redirect_to dashboard_path
@@ -131,6 +131,24 @@ describe UsersController do
         it "redirects to the root path" do
           patch :make_private, id: user.id, user: {public_profile: false}
           expect(response).to redirect_to root_path
+        end
+      end
+    end
+    describe "make public" do
+      context "with authenticated user" do
+        let(:user){ Fabricate(:user) }
+        before {session[:user_id] = user.id}
+        it "redirects to the user path" do
+          patch :make_public, id: user.id, user: {public_profile: true}
+          expect(response).to redirect_to dashboard_path
+        end
+        it "sets the flash success message" do
+          patch :make_public, id: user.id, user: {public_profile: true}
+          expect(flash[:success]).to be_present
+        end
+        it "sets the user profile to true" do
+          patch :make_public, id: user.id, user: {public_profile: true}
+          expect(user.public_profile).to eq(true)
         end
       end
     end

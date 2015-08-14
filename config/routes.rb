@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
   
   patch 'make_private', to: 'users#make_private'
+  patch 'make_public', to: 'users#make_public'
   
   resources :railscasts, only: [:show] do
     resources :notes, only: [:create, :edit]    
