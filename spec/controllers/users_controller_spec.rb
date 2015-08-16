@@ -122,19 +122,27 @@ describe UsersController do
         end
       end
       context "with unauthenticated user" do
-        let(:user){ Fabricate(:user) }
-          it "redirects to the root path" do
-            patch :make_private, id: user.id, user: {public_profile: false}
-            expect(response).to redirect_to root_path
-          end
+        let(:user){ Fabricate(:user, public_profile: true) }
+        it "redirects to the root path" do
+          patch :make_private, id: user.id, user: {public_profile: false}
+          expect(response).to redirect_to root_path
+        end
+        it "sets the user profile to false" do
+          patch :make_private, id: user.id, user: {public_profile: false}
+          expect(user.reload.public_profile).to eq(true)
+        end
       end
       context "with the incorrect user in the session" do
-        let(:user){ Fabricate(:user) }
+        let(:user){ Fabricate(:user, public_profile: true) }
         let(:current_user){ Fabricate(:user) }
         before {session[:current_user_id] = user.id}
         it "redirects to the root path" do
           patch :make_private, id: user.id, user: {public_profile: false}
           expect(response).to redirect_to root_path
+        end
+        it "sets the user profile to false" do
+          patch :make_private, id: user.id, user: {public_profile: false}
+          expect(user.reload.public_profile).to eq(true)
         end
       end
     end
