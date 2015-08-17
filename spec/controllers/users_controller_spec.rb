@@ -127,7 +127,7 @@ describe UsersController do
           patch :make_private, id: user.id, user: {public_profile: false}
           expect(response).to redirect_to root_path
         end
-        it "sets the user profile to false" do
+        it "does not set the user profile to false" do
           patch :make_private, id: user.id, user: {public_profile: false}
           expect(user.reload.public_profile).to eq(true)
         end
@@ -140,7 +140,7 @@ describe UsersController do
           patch :make_private, id: user.id, user: {public_profile: false}
           expect(response).to redirect_to root_path
         end
-        it "sets the user profile to false" do
+        it "does not set the user profile to false" do
           patch :make_private, id: user.id, user: {public_profile: false}
           expect(user.reload.public_profile).to eq(true)
         end
@@ -161,6 +161,17 @@ describe UsersController do
         it "sets the user profile to true" do
           patch :make_public, id: user.id, user: {public_profile: true}
           expect(user.reload.public_profile).to eq(true)
+        end
+      end
+      context "with unauthenticated user" do
+        let(:user){ Fabricate(:user, public_profile: false) }
+        it "redirects to the root path" do
+          patch :make_public, id: user.id, user: {public_profile: true}
+          expect(response).to redirect_to root_path
+        end
+        it "does not set the user profile to true" do
+          patch :make_public, id: user.id, user: {public_profile: true}
+          expect(user.reload.public_profile).to eq(false)
         end
       end
     end
